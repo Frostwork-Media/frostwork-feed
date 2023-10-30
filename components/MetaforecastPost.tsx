@@ -7,7 +7,6 @@ import { IconStarFilled, IconStar } from "@tabler/icons-react";
 export async function MetaforecastPost({ post }: { post: Post }) {
   const { platform, title, description, chartData, stars, rest } =
     await getData(post.slug);
-  console.log(rest);
   return (
     <Card>
       <Text>{platform}</Text>

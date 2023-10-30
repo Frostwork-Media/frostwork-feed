@@ -8,10 +8,10 @@ export async function LinkPost({ post }: { post: Post }) {
   return (
     <a href={post.url}>
       <Card className="flex p-0">
-        <div className="w-[250px] shrink-0 p-1">
+        <div className="w-[250px] shrink-0 p-2">
           <img
             src={image}
-            className="h-full object-cover rounded"
+            className="h-full object-cover rounded-md"
             alt={title}
           />
         </div>

@@ -14,6 +14,7 @@
     "@tremor/react": "^3.10.0",
     "geist": "^1.0.0",
     "next": "14.0.0",
+    "next-auth": "^4.24.4",
     "open-graph-scraper": "^6.3.2",
     "react": "^18",
     "react-dom": "^18"
@@ -21,6 +22,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
+    "@headlessui/tailwindcss": "^0.2.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
