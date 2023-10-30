@@ -6,7 +6,7 @@ import "./globals.css";
 import { data } from "@/lib/db";
 
 export const metadata: Metadata = {
-  title: "Frostwork Updates",
+  title: "Frostwork Feed",
   description: "Keep up with the latest forecasting news",
 };
 

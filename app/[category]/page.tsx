@@ -32,3 +32,9 @@ function getData(slug: string) {
   const posts = data.posts.filter((p) => p.category === category.id);
   return { category, posts };
 }
+
+export async function generateStaticParams() {
+  return data.categories.map((category) => ({
+    category: category.slug,
+  }));
+}
