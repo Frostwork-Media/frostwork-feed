@@ -4,9 +4,10 @@ import Link from "next/link";
 
 import "./globals.css";
 import { data } from "@/lib/db";
-import Provider from "@/context/client-provider";
+import AuthProvider from "@/components/AuthProvider";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { Footer } from "@/components/Footer";
+import { authOptions } from "@/lib/authOptions";
 
 export const metadata: Metadata = {
   title: "Frostwork Feed",
@@ -22,7 +23,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={GeistSans.className}>
-        <Provider session={session}>
+        <AuthProvider session={session}>
           <>
             <nav className="flex gap-4 justify-center bg-neutral-50/50 sticky top-0 z-10 backdrop-blur">
               <Link href="/" className="p-4">
@@ -35,14 +36,9 @@ export default async function RootLayout({
               ))}
             </nav>
             <main>{children}</main>
-            <footer className="p-4 flex gap-2 justify-center">
-              <span>Created by Nathan Young</span>
-              <Link href="/admin" className="text-blue-500 hover:underline">
-                Admin
-              </Link>
-            </footer>
+            <Footer />
           </>
-        </Provider>
+        </AuthProvider>
       </body>
     </html>
   );
