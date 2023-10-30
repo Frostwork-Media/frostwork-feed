@@ -1,5 +1,4 @@
 export type Category = {
-  id: string;
   title: string;
   slug: string;
 };
@@ -29,12 +28,10 @@ export type Schema = {
 export const data: Schema = {
   categories: [
     {
-      id: "xxx",
       title: "US Elections",
       slug: "us-elections",
     },
     {
-      id: "yyy",
       title: "Israel-Palestine",
       slug: "israel-palestine",
     },
@@ -42,37 +39,37 @@ export const data: Schema = {
   posts: [
     {
       id: "mmz",
-      category: "xxx",
+      category: "us-elections",
       type: "metaforecast",
       slug: "manifold-DyWQzCTTlssqFl2EMho0",
     },
     {
       id: "asldkf",
-      category: "xxx",
+      category: "us-elections",
       type: "link",
       url: "https://egghead.io/courses/mock-rest-and-graphql-apis-with-mock-service-worker-8d471ece",
     },
     {
       id: "zzz",
-      category: "xxx",
+      category: "us-elections",
       type: "metaforecast",
       slug: "betfair-1.190717853",
     },
     {
       id: "mmm",
-      category: "xxx",
+      category: "us-elections",
       type: "link",
       url: "https://www.democracynow.org/2023/9/14/naomi_klein_doppelganger",
     },
     {
       id: "mmx",
-      category: "xxx",
+      category: "us-elections",
       type: "link",
       url: "https://www.cnn.com/2023/10/07/middleeast/sirens-israel-rocket-attack-gaza-intl-hnk/index.html",
     },
     {
       id: "mmd",
-      category: "xxx",
+      category: "us-elections",
       type: "metaforecast",
       slug: "rootclaim-shireen-abu-akleh",
     },

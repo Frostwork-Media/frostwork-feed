@@ -11,7 +11,7 @@ export async function MetaforecastPost({ post }: { post: Post }) {
     <Card>
       <Text>{platform}</Text>
       <Title>{title}</Title>
-      <Subtitle className="line-clamp-2 mb-6">{description}</Subtitle>
+      <Subtitle className="line-clamp-3 mb-6">{description}</Subtitle>
       <ProbabilityBarChart chartData={chartData} />
       {/* <pre className="text-xs">{JSON.stringify(rest, null, 2)}</pre> */}
       <Stars stars={stars} />

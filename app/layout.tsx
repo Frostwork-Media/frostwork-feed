@@ -3,11 +3,11 @@ import { GeistSans } from "geist/font";
 import Link from "next/link";
 
 import "./globals.css";
-import { data } from "@/lib/db";
 import AuthProvider from "@/components/AuthProvider";
 import { getServerSession } from "next-auth";
 import { Footer } from "@/components/Footer";
 import { authOptions } from "@/lib/authOptions";
+import { getCategories } from "@/lib/db.remote";
 
 export const metadata: Metadata = {
   title: "Frostwork Feed",
@@ -20,6 +20,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const session = await getServerSession(authOptions);
+  const categories = await getCategories();
   return (
     <html lang="en">
       <body className={GeistSans.className}>
@@ -29,8 +30,8 @@ export default async function RootLayout({
               <Link href="/" className="p-4">
                 Home
               </Link>
-              {data.categories.map((category) => (
-                <Link key={category.id} className="p-4" href={category.slug}>
+              {categories.map((category) => (
+                <Link key={category.slug} className="p-4" href={category.slug}>
                   {category.title}
                 </Link>
               ))}

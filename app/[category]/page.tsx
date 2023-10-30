@@ -1,9 +1,14 @@
 import { LinkPost } from "@/components/LinkPost";
 import { MetaforecastPost } from "@/components/MetaforecastPost";
 import { data } from "@/lib/db";
+import { getCategoryBySlug, getPostsFromCategory } from "@/lib/db.remote";
 
-export default function Category({ params }: { params: { category: string } }) {
-  const data = getData(params.category);
+export default async function Category({
+  params,
+}: {
+  params: { category: string };
+}) {
+  const data = await getData(params.category);
   return (
     <div className="bg-neutral-50 pb-12">
       <h1
@@ -26,10 +31,11 @@ export default function Category({ params }: { params: { category: string } }) {
   );
 }
 
-function getData(slug: string) {
-  const category = data.categories.find((c) => c.slug === slug);
-  if (!category) throw new Error("Category not found");
-  const posts = data.posts.filter((p) => p.category === category.id);
+async function getData(slug: string) {
+  const [category, posts] = await Promise.all([
+    getCategoryBySlug(slug),
+    getPostsFromCategory(slug),
+  ]);
   return { category, posts };
 }
 

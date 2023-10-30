@@ -1,5 +1,5 @@
 import { LinkPost as Post } from "@/lib/db";
-import { Card } from "@tremor/react";
+import { Card, Subtitle, Title, Text } from "@tremor/react";
 import ogs from "open-graph-scraper";
 
 export async function LinkPost({ post }: { post: Post }) {
@@ -21,13 +21,11 @@ export async function LinkPost({ post }: { post: Post }) {
               {favicon && (
                 <img src={favicon} className="w-6 h-6" alt={siteName} />
               )}
-              <span className="text-sm font-bold text-neutral-500">
-                {siteName}
-              </span>
+              <Text>{siteName}</Text>
             </header>
           )}
-          <h2 className="font-bold text-xl">{title}</h2>
-          <p className="line-clamp-3">{description}</p>
+          <Title>{title}</Title>
+          <Subtitle className="line-clamp-3 mb-6">{description}</Subtitle>
         </div>
       </Card>
     </a>

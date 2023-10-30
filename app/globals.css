@@ -7,3 +7,24 @@ html {
   -moz-osx-font-smoothing: grayscale; */
   @apply bg-neutral-50;
 }
+
+/** Nice Scrollbars **/
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  border: 2px solid transparent;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-track:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
