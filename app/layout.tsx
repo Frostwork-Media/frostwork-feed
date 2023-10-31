@@ -12,10 +12,9 @@ export const metadata: Metadata = {
   description: "Keep up with the latest forecasting news",
 };
 
-export const fontSans = Schibsted_Grotesk({
+const fontSans = Schibsted_Grotesk({
   subsets: ["latin"],
   variable: "--font-sans",
-  weight: ["400", "700"],
 });
 
 export default async function RootLayout({
