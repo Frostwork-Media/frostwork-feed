@@ -13,12 +13,17 @@
   "dependencies": {
     "@tabler/icons-react": "^2.40.0",
     "@tremor/react": "^3.10.0",
-    "geist": "^1.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.0.0",
+    "lucide-react": "^0.291.0",
     "next": "14.0.0",
     "next-auth": "^4.24.4",
     "open-graph-scraper": "^6.3.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss-animate": "^1.0.7",
+    "zustand": "^4.4.4"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.0",

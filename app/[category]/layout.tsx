@@ -1,11 +1,12 @@
 import { Footer } from "@/components/Footer";
 import { Nav } from "@/components/Nav";
+import { ReactNode } from "react";
 
-export default async function Home() {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Nav />
-      <p className="text-center text-neutral-500">Select a Category</p>
+      <main>{children}</main>
       <Footer />
     </>
   );

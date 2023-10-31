@@ -6,8 +6,11 @@ import Link from "next/link";
 export function Footer() {
   const session = useSession();
   return (
-    <footer className="p-4 flex gap-2 justify-center">
+    <footer className="p-4 flex gap-4 justify-center">
       <span>Created by Nathan Young</span>
+      <Link href="/admin" className="text-blue-500 hover:underline">
+        Admin
+      </Link>
       {session.status === "authenticated" ? (
         <button
           onClick={() =>
@@ -20,11 +23,7 @@ export function Footer() {
         >
           Sign Out
         </button>
-      ) : (
-        <Link href="/admin" className="text-blue-500 hover:underline">
-          Admin
-        </Link>
-      )}
+      ) : null}
     </footer>
   );
 }

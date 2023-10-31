@@ -1,4 +1,4 @@
-import { Category, Post } from "./db";
+import { Category, Post, Schema } from "./db";
 
 if (!process.env.JSON_BIN_SECRET) throw new Error("Missing JSON_BIN_SECRET");
 
@@ -48,4 +48,19 @@ export async function getCategoryBySlug(id: string) {
 
   const json = (await response.json()) as Category[];
   return json[0];
+}
+
+/** Loads the entire project */
+export async function loadEverything() {
+  const response = await fetch(
+    `https://api.jsonbin.io/v3/b/${binId}?meta=false`,
+    {
+      headers: {
+        "X-Master-Key": jbKey,
+      },
+    }
+  );
+
+  const json = (await response.json()) as Schema;
+  return json;
 }
