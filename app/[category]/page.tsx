@@ -10,7 +10,7 @@ export default async function Category({
 }) {
   const data = await getData(params.category);
   return (
-    <div className="bg-neutral-50 pb-12">
+    <div className="pb-12">
       <h1
         className="
       text-center font-bold text-4xl py-8

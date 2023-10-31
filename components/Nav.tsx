@@ -5,7 +5,7 @@ export async function Nav() {
   const categories = await getCategories();
 
   return (
-    <nav className="flex gap-4 justify-center bg-neutral-50/50 sticky top-0 z-10 backdrop-blur">
+    <nav className="flex gap-4 justify-center bg-background/80 sticky top-0 z-10 backdrop-blur">
       <Link href="/" className="p-4">
         Home
       </Link>
