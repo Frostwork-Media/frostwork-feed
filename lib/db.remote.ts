@@ -15,6 +15,7 @@ export async function getCategories() {
   );
 
   const json = await response.json();
+  console.log({ json });
   return json as Category[];
 }
 
