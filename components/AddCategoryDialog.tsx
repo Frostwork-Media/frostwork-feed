@@ -12,6 +12,7 @@ import { Input } from "./ui/input";
 import { useCallback, useState } from "react";
 import { useEditStore } from "@/lib/useEditStore";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { slugify } from "../lib/slugify";
 
 export function AddCategoryDialog({
   children,
@@ -32,7 +33,7 @@ export function AddCategoryDialog({
   const addCategory = useEditStore((state) => state.addCategory);
   return (
     <Dialog>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add New Category</DialogTitle>
@@ -79,12 +80,4 @@ function FormField({
       {children}
     </label>
   );
-}
-
-function slugify(text: string) {
-  return text
-    .toLowerCase()
-    .replace(/[^a-z0-9-]/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
 }

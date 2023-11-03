@@ -1,5 +1,4 @@
-import { LinkPost } from "@/components/LinkPost";
-import { MetaforecastPost } from "@/components/MetaforecastPost";
+import { DisplayPost } from "@/components/DisplayPost";
 import { data } from "@/lib/db";
 import { getCategoryBySlug, getPostsFromCategory } from "@/lib/db.remote";
 
@@ -9,6 +8,7 @@ export default async function Category({
   params: { category: string };
 }) {
   const data = await getData(params.category);
+  console.log(data);
   return (
     <div className="pb-12">
       <h1
@@ -20,11 +20,7 @@ export default async function Category({
       </h1>
       <div className="grid gap-6 max-w-3xl mx-auto">
         {data.posts.map((post) => {
-          if (post.type === "link") {
-            return <LinkPost key={post.id} post={post} />;
-          } else if (post.type === "metaforecast") {
-            return <MetaforecastPost key={post.id} post={post} />;
-          }
+          return <DisplayPost key={post.id} post={post} />;
         })}
       </div>
     </div>
