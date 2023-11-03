@@ -8,7 +8,6 @@ export default async function Category({
   params: { category: string };
 }) {
   const data = await getData(params.category);
-  console.log(data);
   return (
     <div className="pb-12">
       <h1

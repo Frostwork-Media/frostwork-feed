@@ -132,7 +132,6 @@ export const createEditStore = (data: Schema) => {
           posts: [...state.store.posts, post],
         },
       }));
-      console.log(get().store);
     },
   }));
 };

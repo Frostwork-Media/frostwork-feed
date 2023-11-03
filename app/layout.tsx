@@ -6,6 +6,8 @@ import { AuthProvider } from "@/components/AuthProvider";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
 import { cn } from "@/lib/utils";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
 
 export const metadata: Metadata = {
   title: "Frostwork Feed",
@@ -24,17 +26,19 @@ export default async function RootLayout({
 }) {
   const session = await getServerSession(authOptions);
   return (
-    <AuthProvider session={session}>
-      <html lang="en">
-        <body
-          className={cn(
-            "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
-          )}
-        >
-          {children}
-        </body>
-      </html>
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider session={session}>
+        <html lang="en">
+          <body
+            className={cn(
+              "min-h-screen bg-background font-sans antialiased",
+              fontSans.variable
+            )}
+          >
+            {children}
+          </body>
+        </html>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 }
