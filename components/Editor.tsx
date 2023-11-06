@@ -181,14 +181,14 @@ function PostBlock({ post }: { post: Post }) {
         {post.type === "link" ? (
           <a
             href={post.url}
-            className="font-mono text-sm underline hover:text-blue-500"
+            className="font-mono text-sm underline hover:text-blue-500 break-all"
           >
             {post.url}
           </a>
         ) : (
           <a
             href={`https://metaforecast.org/questions/${post.slug}`}
-            className="font-mono text-sm underline hover:text-blue-500"
+            className="font-mono text-sm underline hover:text-blue-500 break-all"
           >
             {post.slug}
           </a>
