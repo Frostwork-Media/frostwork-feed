@@ -11,6 +11,12 @@ import { PublishButton } from "./PublishButton";
 import Link from "next/link";
 import { Button } from "@tremor/react";
 import { AddPostDialog } from "./AddPostDialog";
+import {
+  IconArrowDown,
+  IconArrowLeft,
+  IconArrowRight,
+  IconArrowUp,
+} from "@tabler/icons-react";
 
 export function Editor({ data }: { data: Schema }) {
   const store = useRef(createEditStore(data)).current;
@@ -29,9 +35,9 @@ function EditInner() {
   const active = categories.find((c) => c.slug === activeCategory);
   return (
     <>
-      <div className="bg-black text-white p-4 text-lg flex justify-between">
+      <div className="bg-neutral-200 font-bold p-4 text-lg flex justify-between">
         <span>
-          Select a category to edit or delete it. When finished, click{" "}
+          Select a category to edit or delete it. When finished editing, click{" "}
           <PublishButton>Publish</PublishButton>.
         </span>
         <Link href="/">Exit</Link>
@@ -52,7 +58,7 @@ function EditInner() {
           ))}
           <AddCategoryDialog setActiveCategory={setActiveCategory}>
             <button className={cn(btn, "bg-black text-white hover:bg-black")}>
-              Add New Category
+              Add Category
             </button>
           </AddCategoryDialog>
         </div>
@@ -82,50 +88,70 @@ function ActiveCategory({
   const updateCategoryTitle = useEditStore(
     (state) => state.updateCategoryTitle
   );
+  const moveCategoryUp = useEditStore((state) => state.moveCategoryUp);
+  const moveCategoryDown = useEditStore((state) => state.moveCategoryDown);
   return (
-    <>
-      <div className="p-4 bg-purple-100 rounded-lg max-w-lg grid gap-2">
+    <div className="grid sm:grid-cols-2 gap-4 content-start items-start">
+      <div className="grid gap-2">
         <SectionTitle>Category</SectionTitle>
-        <h2 className="text-xl font-bold">Rename</h2>
-        <Input
-          value={title}
-          onChange={(e) => {
-            updateCategoryTitle(slug, e.target.value);
-          }}
-        />
-        <Hr />
-        <h2 className="text-xl font-bold">Delete</h2>
-        <div className="flex justify-end">
-          <Button
-            color="red"
-            onClick={() => {
-              if (confirm("Are you sure you want to delete this category?")) {
-                setActiveCategory("");
-                deleteCategory(slug);
-              }
+        <div className="p-4 border-purple-500 border-2 bg-purple-50 rounded-lg max-w-lg grid gap-2 content-start">
+          <div className="flex gap-1">
+            <Button
+              color="purple"
+              onClick={() => moveCategoryUp(slug)}
+              icon={IconArrowLeft}
+            >
+              Move
+            </Button>
+            <Button
+              color="purple"
+              onClick={() => moveCategoryDown(slug)}
+              icon={IconArrowRight}
+              iconPosition="right"
+            >
+              Move
+            </Button>
+          </div>
+          <h2 className="text-xl font-bold">Rename</h2>
+          <Input
+            value={title}
+            onChange={(e) => {
+              updateCategoryTitle(slug, e.target.value);
             }}
-          >
-            Delete
-          </Button>
+          />
+          <h2 className="text-xl font-bold">Delete</h2>
+          <div className="flex justify-end">
+            <Button
+              color="red"
+              onClick={() => {
+                if (confirm("Are you sure you want to delete this category?")) {
+                  setActiveCategory("");
+                  deleteCategory(slug);
+                }
+              }}
+            >
+              Delete
+            </Button>
+          </div>
         </div>
       </div>
       <div className="grid gap-2">
         <header className="flex gap-4 items-center">
           <SectionTitle>Posts</SectionTitle>
           <AddPostDialog categorySlug={slug}>
-            <Button>Add New</Button>
+            <Button color="teal">Add Post</Button>
           </AddPostDialog>
         </header>
         {posts.map((post) => (
           <PostBlock key={post.id} post={post} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
 
 function SectionTitle({ children }: { children: string }) {
-  return <h2 className="text-3xl font-bold">{children}</h2>;
+  return <h2 className="text-2xl font-bold">{children}</h2>;
 }
 
 function Hr() {
@@ -137,11 +163,16 @@ function PostBlock({ post }: { post: Post }) {
   const movePostUp = useEditStore((state) => state.movePostUp);
   const movePostDown = useEditStore((state) => state.movePostDown);
   return (
-    <div className="border rounded">
+    <div
+      className={cn("border-2 rounded-lg overflow-hidden", {
+        "border-blue-500": post.type === "link",
+        "border-green-500": post.type === "metaforecast",
+      })}
+    >
       <span
         className={cn("font-bold block text-sm p-3", {
-          "bg-blue-100": post.type === "link",
-          "bg-green-100": post.type === "metaforecast",
+          "bg-blue-50": post.type === "link",
+          "bg-green-50": post.type === "metaforecast",
         })}
       >
         {post.type}
@@ -163,8 +194,12 @@ function PostBlock({ post }: { post: Post }) {
           </a>
         )}
         <div className="flex justify-end gap-1">
-          <Button onClick={() => movePostUp(post.id)}>Move Up</Button>
-          <Button onClick={() => movePostDown(post.id)}>Move Down</Button>
+          <Button onClick={() => movePostUp(post.id)} icon={IconArrowUp}>
+            Move
+          </Button>
+          <Button onClick={() => movePostDown(post.id)} icon={IconArrowDown}>
+            Move
+          </Button>
           <Button
             color="red"
             onClick={() => {

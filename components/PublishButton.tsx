@@ -8,7 +8,7 @@ export function PublishButton({ children }: { children: React.ReactNode }) {
 
   return (
     <button
-      className="underline"
+      className="p-1 px-2 bg-neutral-300 rounded-lg"
       onClick={() => {
         if (confirm("Are you sure you want to publish?")) {
           updateBin(store).then(() => {

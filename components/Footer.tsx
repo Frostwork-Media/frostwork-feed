@@ -5,9 +5,11 @@ import Link from "next/link";
 
 export function Footer() {
   const session = useSession();
+  const year = new Date().getFullYear();
   return (
-    <footer className="p-4 flex gap-4 justify-center">
-      <span>Created by Nathan Young</span>
+    <footer className="p-4 flex gap-4 justify-center text-sm">
+      <span className="font-bold">Curated by Nathan Young</span>
+      <span>{year}</span>
       <Link href="/admin" className="text-blue-500 hover:underline">
         Admin
       </Link>

@@ -18,9 +18,9 @@ export async function LinkPost({ post }: { post: Post }) {
         <div className="flex-1 p-4 pl-2 grid gap-2 content-start">
           {siteName && (
             <header className="flex gap-1 items-center">
-              {favicon && (
+              {/* {favicon && (
                 <img src={favicon} className="w-6 h-6" alt={siteName} />
-              )}
+              )} */}
               <Text>{siteName}</Text>
             </header>
           )}

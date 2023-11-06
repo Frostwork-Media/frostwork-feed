@@ -12,6 +12,8 @@ export interface EditState {
   updateCategoryTitle(slug: string, title: string): void;
   updateCategorySlug(slug: string, newSlug: string): void;
   addPost(post: Post): void;
+  moveCategoryUp(slug: string): void;
+  moveCategoryDown(slug: string): void;
 }
 
 export const createEditStore = (data: Schema) => {
@@ -132,6 +134,60 @@ export const createEditStore = (data: Schema) => {
           posts: [...state.store.posts, post],
         },
       }));
+    },
+    moveCategoryUp(slug) {
+      set((state) => {
+        const index = state.store.categories.findIndex((c) => c.slug === slug);
+        if (index === 0) {
+          return state;
+        }
+
+        const category = state.store.categories[index];
+        const previousCategory = state.store.categories[index - 1];
+
+        return {
+          ...state,
+          store: {
+            ...state.store,
+            categories: state.store.categories.map((c, i) => {
+              if (i === index) {
+                return previousCategory;
+              }
+              if (i === index - 1) {
+                return category;
+              }
+              return c;
+            }),
+          },
+        };
+      });
+    },
+    moveCategoryDown(slug) {
+      set((state) => {
+        const index = state.store.categories.findIndex((c) => c.slug === slug);
+        if (index === state.store.categories.length - 1) {
+          return state;
+        }
+
+        const category = state.store.categories[index];
+        const nextCategory = state.store.categories[index + 1];
+
+        return {
+          ...state,
+          store: {
+            ...state.store,
+            categories: state.store.categories.map((c, i) => {
+              if (i === index) {
+                return nextCategory;
+              }
+              if (i === index + 1) {
+                return category;
+              }
+              return c;
+            }),
+          },
+        };
+      });
     },
   }));
 };

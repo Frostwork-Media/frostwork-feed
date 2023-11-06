@@ -8,7 +8,14 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import {
+  ReactNode,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import {
   Select,
   SelectContent,
@@ -48,6 +55,14 @@ export function AddPostDialog({
   const disabled =
     (postType === "link" && linkUrl.length === 0) ||
     (postType === "metaforecast" && slug.length === 0);
+
+  // When switching to the metaforecast type, automatically focus the input
+  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (postType === "metaforecast") {
+      inputRef.current?.focus();
+    }
+  }, [postType]);
 
   return (
     <Dialog
@@ -111,7 +126,7 @@ export function AddPostDialog({
               name="url"
             />
           ) : (
-            <MetaforecastSearch slug={slug} setSlug={setSlug} />
+            <MetaforecastSearch slug={slug} setSlug={setSlug} ref={inputRef} />
           )}
           <Button
             disabled={disabled}
@@ -127,18 +142,22 @@ export function AddPostDialog({
   );
 }
 
-function MetaforecastSearch({
-  slug,
-  setSlug,
-}: {
+type MetaforecastSearchProps = {
   slug: string;
   setSlug: (slug: string) => void;
-}) {
+};
+
+const MetaforecastSearch = forwardRef<
+  HTMLInputElement,
+  MetaforecastSearchProps
+>(function MetaforecastSearch({ slug, setSlug }, ref) {
   const [search, setSearch] = useState("");
+
   // Unset any selected slug if the search changes
   useEffect(() => {
     setSlug("");
   }, [search, setSlug]);
+
   const searchQuery = useQuery({
     queryKey: ["search", search],
     enabled: search.length > 3,
@@ -147,12 +166,18 @@ function MetaforecastSearch({
       return data as Question[];
     },
   });
+
   return (
     <div>
       <p className="text-sm mb-1">
         Type at least 3 characters to search metaforecast:
       </p>
-      <Input value={search} onChange={(e) => setSearch(e.target.value)} />
+      <Input
+        ref={ref}
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        autoFocus
+      />
       <h2 className="font-bold mt-3">Results</h2>
       <div className="h-[300px] overflow-auto border rounded my-2 shadow-inner">
         {searchQuery.isLoading ? (
@@ -178,4 +203,4 @@ function MetaforecastSearch({
       </div>
     </div>
   );
-}
+});

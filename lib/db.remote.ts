@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidateTag } from "next/cache";
 import { binId, jbKey } from "./constants";
 import { Category, Post, Schema } from "./db";
 
@@ -10,6 +11,10 @@ export async function getCategories() {
       headers: {
         "X-Master-Key": jbKey,
         "X-JSON-Path": "categories.*",
+      },
+      next: {
+        // "feed" represents everything
+        tags: ["feed"],
       },
     }
   );
@@ -26,6 +31,9 @@ export async function getPostsFromCategory(id: string) {
         "X-Master-Key": jbKey,
         "X-JSON-Path": `$.posts[?(@.category == '${id}')]`,
       },
+      next: {
+        tags: ["feed"],
+      },
     }
   );
 
@@ -41,6 +49,9 @@ export async function getCategoryBySlug(id: string) {
         "X-Master-Key": jbKey,
         "X-JSON-Path": `$.categories[?(@.slug == '${id}')]`,
       },
+      next: {
+        tags: ["feed"],
+      },
     }
   );
 
@@ -55,6 +66,9 @@ export async function loadEverything() {
     {
       headers: {
         "X-Master-Key": jbKey,
+      },
+      next: {
+        tags: ["feed"],
       },
     }
   );
@@ -75,5 +89,9 @@ export const updateBin = async (data: Schema) => {
   });
 
   const json = (await response.json()) as Schema;
+
+  // Revalidate the feed
+  revalidateTag("feed");
+
   return json;
 };
